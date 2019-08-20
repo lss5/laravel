@@ -10,7 +10,7 @@ class Setting extends Model
 
     public static function getSettings($key = null)
     {
-        $settings = $key ? self::where('key', $key)->first() : self::get();
+        $settings = $key ? self::where('key', $key)->first() : self::all();
 
         $collect = collect();
         foreach ($settings as $setting) {
