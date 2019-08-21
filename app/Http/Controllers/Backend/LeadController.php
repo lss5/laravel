@@ -11,6 +11,6 @@ class LeadController extends Controller
 {
     public function index()
     {
-        return view('backend.leads', Lead::getLeads());
+        return view('backend.leads')->with('leads', Lead::getLeads());
     }
 }

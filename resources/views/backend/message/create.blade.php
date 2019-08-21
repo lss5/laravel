@@ -12,22 +12,22 @@
             </ul>
         </div>
     @endif
-    <form action="{{ route('admin.messages.store') }}" method="POST">
-        {{ csrf_field() }}
+    {{ Form::open(array('route' => 'admin.messages.store', 'method' => 'post')) }}
         <div class="form-group">
-            <label for="lead">Профиль</label>
-            <input type="text" class="form-control" id="lead" name="lead" aria-describedby="emailHelp" placeholder="ID пользователя (пока так)">
-            {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
+            {{ Form::label('lead', 'Профиль') }}
+            {{-- {{ $lead }} --}}
+            @if (empty($lead))
+                {{ Form::text('lead', null, ['class' => 'form-control', 'placeholder' => 'ID пользователя (пока так)']) }}
+            @else
+                {{ Form::text('lead', $lead, ['class' => 'form-control', 'placeholder' => 'ID пользователя (пока так)', 'readonly']) }}
+            @endif
         </div>
         <div class="form-group">
-            <label for="text">Текст сообщения</label>
-            <textarea class="form-control" id="text" name="text" rows="3"></textarea>
+            {{ Form::label('text', 'Текст сообщения') }}
+            {{ Form::textarea('text', null, ['class' => 'form-control', 'rows' => '3']) }}
         </div>
-        <button type="submit" class="btn btn-primary">Отправить</button>
-            {{-- <input type="url" class="form-control" id="url_callback_bot" name="url_callback_bot" value="{{ isset($url_callback_bot) ? $url_callback_bot : '' }}"> --}}
-        {{-- <button type="submit" class="btn btn-primary mt-4">Сохранить</button> --}}
+        {{ Form::button('Отправить', ['class' => 'btn btn-primary', 'type' => 'submit']) }}
     </div>
-
-    </form>
+    {{ Form::close() }}
 </div>
 @endsection

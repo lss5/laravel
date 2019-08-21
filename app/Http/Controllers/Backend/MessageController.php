@@ -16,7 +16,7 @@ class MessageController extends Controller
      */
     public function index()
     {
-        return view('backend.message.index', Message::getMessages());
+        return view('backend.message.index')->with(['messages' => Message::getMessages()]);
     }
 
     /**
@@ -24,10 +24,10 @@ class MessageController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
         // load the create form (resources/views/backend/message/create.blade.php)
-        return view('backend.message.create');
+        return view('backend.message.create')->with(['lead' => $request->input('lead_id')]);
     }
 
     /**

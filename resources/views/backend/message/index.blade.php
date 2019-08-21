@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    <h2 class="my-2">Сообщения</h2>
     <table class="table table-striped">
         <thead>
             <tr>

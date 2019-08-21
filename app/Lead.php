@@ -17,20 +17,13 @@ class Lead extends Model
     protected $dates = ['deleted_at'];
 
     /**
-     * Получить всех пользователей
+     * Получить всех пользователей со связанными сообщениями.
      * 
      * @return array
      */
-    public static function getLeads($id = null)
+    public static function getLeads()
     {
-        if (isset($id)) {
-            return self::firstOrNew($id);
-        } else {
-            $leads = self::with('messages')->orderBy('created_at', 'desc')->get();
-            return [
-                'leads' => $leads
-            ];
-        }
+        return self::with('messages')->orderBy('created_at', 'desc')->get();
     }
 
     /**

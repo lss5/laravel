@@ -6,17 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model
 {
+    /**
+     * Many To One
+     */
     public function lead()
     {
         return $this->belongsTo('App\Lead');
     }
 
+    /**
+     * All messages with related leads.
+     */
     public static function getMessages()
     {
-        $messages = self::with('lead')->get();
-
-        return [
-            'messages' => $messages
-        ];
+        return self::with('lead')->orderBy('created_at', 'desc')->get();
     }
 }
