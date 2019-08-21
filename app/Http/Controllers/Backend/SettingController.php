@@ -9,9 +9,6 @@ use App\Setting;
 
 class SettingController extends Controller
 {
-    // public $timestamps = false;
-    // protected $guarded = [];
-
     public function index()
     {
         return view('backend.setting', Setting::getSettings());

@@ -24,16 +24,11 @@ class Lead extends Model
     public static function getLeads($id = null)
     {
         if (isset($id)) {
-            return self::find($id);
+            return self::firstOrNew($id);
         } else {
-            $full_leads = [];
-            $leads = self::orderBy('created_at', 'desc')->get();
-            foreach ($leads as $lead) {
-                $lead['messages'] = self::find($lead['id'])->messages;
-                $full_leads[] = $lead;
-            }
+            $leads = self::with('messages')->orderBy('created_at', 'desc')->get();
             return [
-                'leads' => $full_leads
+                'leads' => $leads
             ];
         }
     }

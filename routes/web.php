@@ -26,4 +26,9 @@ Route::middleware(['auth'])->prefix('admin')->namespace('Backend')->name('admin.
     Route::post('/setting/store', 'SettingController@store')->name('setting.store');
 
     Route::get('/lead', 'LeadController@index')->name('lead.index');
+
+    Route::get('/messages', 'MessageController@index')->name('messages.index');
+    Route::get('/messages/create', 'MessageController@create')->name('messages.create');
+    Route::post('/messages/store', 'MessageController@store')->name('messages.store');
+    Route::delete('/messages/{id}', 'MessageController@destroy')->name('messages.destroy');
 });

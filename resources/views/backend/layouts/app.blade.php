@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'by lss') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -35,7 +35,8 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item"><a class="nav-link" href="{{ route('admin.index') }}">Панель управления</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('admin.setting.index') }}">Настройки</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('admin.lead.index') }}">Leads</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('admin.lead.index') }}">Профили</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('admin.messages.index') }}">Сообщения</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
