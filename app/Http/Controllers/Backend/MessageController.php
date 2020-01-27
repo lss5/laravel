@@ -9,32 +9,17 @@ use App\Message;
 
 class MessageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
     public function index()
     {
         return view('backend.message.index')->with(['messages' => Message::getMessages()]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
     public function create(Request $request)
     {
         // load the create form (resources/views/backend/message/create.blade.php)
         return view('backend.message.create')->with(['lead' => $request->input('lead_id')]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, [

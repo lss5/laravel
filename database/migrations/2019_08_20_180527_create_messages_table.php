@@ -19,6 +19,7 @@ class CreateMessagesTable extends Migration
             $table->string('direction');
             $table->text('text');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

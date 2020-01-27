@@ -36,7 +36,7 @@
                         <li class="nav-item"><a class="nav-link" href="{{ route('admin.index') }}">Панель управления</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('admin.setting.index') }}">Настройки</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('admin.lead.index') }}">Профили</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('admin.messages.index') }}">Сообщения</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('admin.workflow.index') }}">Процесс</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
