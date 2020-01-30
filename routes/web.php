@@ -22,10 +22,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware(['auth'])->prefix('admin')->namespace('Backend')->name('admin.')->group(function(){
     Route::get('/', 'DashboardController@index')->name('index');
 
-    Route::get('/setting', 'SettingController@index')->name('setting.index');
-    Route::post('/setting/store', 'SettingController@store')->name('setting.store');
+    Route::get('/settings', 'SettingController@index')->name('setting.index');
+    Route::post('/settings/store', 'SettingController@store')->name('setting.store');
 
-    Route::get('/lead', 'LeadController@index')->name('lead.index');
+    Route::get('/leads', 'LeadController@list')->name('lead.list');
+    Route::get('/leads/{id}', 'LeadController@index')->name('lead.index');
+    Route::delete('/leads/{id}', 'LeadController@destroy')->name('lead.destroy');
 
     Route::get('/messages', 'MessageController@index')->name('message.index');
     Route::get('/messages/create', 'MessageController@create')->name('message.create');

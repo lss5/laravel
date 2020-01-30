@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Message;
+use App\Lead;
+use App\VKApi;
 
 class MessageController extends Controller
 {
@@ -16,7 +18,6 @@ class MessageController extends Controller
 
     public function create(Request $request)
     {
-        // load the create form (resources/views/backend/message/create.blade.php)
         return view('backend.message.create')->with(['lead' => $request->input('lead_id')]);
     }
 
@@ -27,25 +28,22 @@ class MessageController extends Controller
             'text' => 'required',
         ]);
 
-        $message = new Message();
-        $message->lead_id = $request->lead;
-        $message->direction = 'out';
-        $message->text = $request->text;
-        $message->save();
+        $lead = Lead::find($request->lead);
+        if ($lead) {
+            $lead->messages()->create([
+                'text' => $request->text,
+                'direction' => 'out',
+            ]);
+            VKApi::messageSend($lead->id, $request->text);
+        }
 
-        return redirect()->route('admin.messages.index');
+        return redirect()->route('admin.lead.list');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
     public function destroy(Request $request, $id)
     {
         Message::destroy($id);
 
-        return redirect()->route('admin.messages.index');
+        return redirect()->route('admin.lead.list');
     }
 }

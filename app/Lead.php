@@ -6,53 +6,41 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 
-use App\vkApi;
+use App\VKApi;
 
 class Lead extends Model
 {
-    use SoftDeletes;
     protected $guarded = [];
 
-    /**
-     * Атрибуты, которые должны быть преобразованы в даты.
-     */
-    protected $dates = ['deleted_at'];
-
-    /**
-     * Получить всех пользователей со связанными сообщениями.
-     * 
-     * @return array
-     */
     public static function getLeads()
     {
-        $leads = self::with('messages')->orderBy('created_at', 'desc')->get();
-        // var_dump($leads);
-        return $leads;
+        return self::with('lastMessage')->take(20)->get();
     }
 
-    /**
-     * One To Many
-     */
     public function messages()
     {
         return $this->hasMany('App\Message');
     }
 
+    public function lastMessage()
+    {
+        return $this->hasOne('App\Message')->latest();
+    }
+
     /**
-     * Запрашиваем данные пользователя по ИД
+     * Запрашиваем данные пользователя по ID
      * Если изменились/отсутствуют сохраняем
      */
     public function checkNames()
     {
-        $user_data = vkApi::getUsers($this->id);
+        $user_data = VKApi::getUsers($this->id);
         if (empty($user_data))
-            throw new \Exception("Ошибка обновления данных о пользователе");
+            throw new \Exception("Ошибка получения данных пользователя");
 
         foreach ($user_data as $user) {
             if ($this->id == $user['id'] && ($this->first_name != $user['first_name'] || $this->last_name != $user['last_name'])) {
                 $this->first_name = $user['first_name'];
                 $this->last_name = $user['last_name'];
-                $this->save();
             }
         }
         return true;

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class vkApi extends Model
+class VKApi extends Model
 {
     public static function call($method, array $params)
     {
@@ -24,6 +24,15 @@ class vkApi extends Model
     {
         return self::call('users.get', array(
             'user_id' => $user_id,
+        ));
+    }
+
+    public static function messageSend($user_id, $message)
+    {
+        return self::call('messages.send', array(
+            'user_id'    => $user_id,
+            'message'    => $message,
+            'random_id'  => random_int(100000000, 999999999) . $user_id,
         ));
     }
 }

@@ -36,14 +36,13 @@ class InboundController extends Controller
             if (empty($lead_id))
                 throw new \Exception("Нет идентификатора пользователя");
 
-            $lead = Lead::firstOrCreate(['id' => $lead_id]);
-            $lead->id = $lead_id; // TODO: после сохранение пустое значение this->id
+            $lead = Lead::firstOrNew(['id' => $lead_id]);
             $lead->checkNames(); // Обновляем/заполняем данные пользователя
             $lead->messages()->create([ // Добавляем сообщение к записи пользователя
                 'text' => $lead_message,
                 'direction' => 'in',
             ]);
-            // $message_id = $lead->messages()->orderBy('created_at', 'desc')->first()->id;
+            $lead->save();
 
             /* Отправляем пользователю ответное сообщение */
             $message = new Message();

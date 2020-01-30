@@ -6,8 +6,9 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col" width="25%">Профиль</th>
-                <th scope="col">Сообщение</th>
+                <th scope="col" width="20%">Профиль</th>
+                <th scope="col" width="5%">Направление</th>
+                <th scope="col">Последнее сообщение</th>
                 <th scope="col" width="5%" class="text-center">MES</th>
                 <th scope="col" width="5%" class="text-center">DEL</th>
             </tr>
@@ -16,24 +17,25 @@
             @forelse ($leads as $lead)
                 <tr>
                     <td>{{ $lead->first_name . ' ' . $lead->last_name }} ({{ $lead->id }})</td>
-                    <td><table>
-                        @forelse ($lead->messages as $message)
-                            <tr>
-                                <td>@if ($message->direction == 'out') <i class="fas fa-arrow-circle-left"></i> @elseif ($message->direction == 'in') <i class="fas fa-arrow-alt-circle-right"></i> @endif</td>
-                                <td>{{ $message->text }}</td>
-                                <td>{{ $message->created_at->format('d/m/Y H:s') }}</td>
-                            </tr>
-                        @empty
-                            Нет сообщений
-                        @endforelse
-                    </table></td>
+                    <td>@if ($lead->lastMessage['direction'] == 'out')
+                            <i class="fas fa-arrow-circle-left"></i> {{$lead->lastMessage['direction']}}
+                        @elseif ($lead->lastMessage['direction'] == 'in')
+                        <i class="fas fa-arrow-circle-right"></i> {{$lead->lastMessage['direction']}}
+                    @endif</td>
+                    <td>{{ $lead->lastMessage['text'] }}</td>
                     <td class="text-center text-primary">
                         <a href="{{ route('admin.message.create', ['lead_id' => $lead->id]) }}">
                             <i class="fas fa-paper-plane"></i>
                         </a>
                     </td>
                     <td class="text-center text-danger">
-                        <i class="fas fa-trash"></i>
+                        <form action="{{ route('admin.lead.destroy', ['id' => $lead->id]) }}" method="POST">
+                            @method('DELETE')
+                            @csrf
+                            <button type="submit" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
             @empty
