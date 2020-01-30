@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class checkInboundKey
+class CheckInboundKey
 {
     /**
      * Handle an incoming request.
@@ -21,6 +21,6 @@ class checkInboundKey
             return $next($request);
         }
 
-        return response('ok_m', 200);
+        return response('ok', 200);
     }
 }
