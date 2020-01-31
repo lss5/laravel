@@ -18,17 +18,30 @@ class MessageController extends Controller
 
     public function create(Request $request)
     {
-        return view('backend.message.create')->with(['lead' => $request->input('lead_id')]);
+        $this->validate($request, [
+            'lead_id' => 'required|integer',
+        ]);
+
+        $lead = Lead::find($request->input('lead_id'));
+        if ($lead) {
+            return view('backend.message.create')->with([
+                'lead_id' => $request->input('lead_id'),
+                'lead_name' => $lead->first_name . ' ' . $lead->last_name,
+            ]);
+        } else {
+            return back()->withErrors('Not found user for sending message');
+        }
+
     }
 
     public function store(Request $request)
     {
         $this->validate($request, [
-            'lead' => 'required|integer',
+            'lead_id' => 'required|integer',
             'text' => 'required',
         ]);
 
-        $lead = Lead::find($request->lead);
+        $lead = Lead::find($request->input('lead_id'));
         if ($lead) {
             $lead->messages()->create([
                 'text' => $request->text,
@@ -40,10 +53,10 @@ class MessageController extends Controller
         return redirect()->route('admin.lead.list');
     }
 
-    public function destroy(Request $request, $id)
-    {
-        Message::destroy($id);
+    // public function destroy(Request $request, $id)
+    // {
+    //     Message::destroy($id);
 
-        return redirect()->route('admin.lead.list');
-    }
+    //     return redirect()->route('admin.lead.list');
+    // }
 }

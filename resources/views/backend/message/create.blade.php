@@ -13,14 +13,10 @@
         </div>
     @endif
     {{ Form::open(array('route' => 'admin.message.store', 'method' => 'post')) }}
+        {{ Form::hidden('lead_id', $lead_id) }}
         <div class="form-group">
             {{ Form::label('lead', 'Профиль') }}
-            {{-- {{ $lead }} --}}
-            @if (empty($lead))
-                {{ Form::text('lead', null, ['class' => 'form-control', 'placeholder' => 'ID пользователя (пока так)']) }}
-            @else
-                {{ Form::text('lead', $lead, ['class' => 'form-control', 'placeholder' => 'ID пользователя (пока так)', 'readonly']) }}
-            @endif
+            {{ Form::text('lead', $lead_name, ['class' => 'form-control', 'placeholder' => 'Пользователь', 'readonly']) }}
         </div>
         <div class="form-group">
             {{ Form::label('text', 'Текст сообщения') }}

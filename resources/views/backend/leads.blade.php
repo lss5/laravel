@@ -3,6 +3,15 @@
 @section('content')
 <div class="container">
     <h2 class="py-2">Профили</h2>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <table class="table table-striped">
         <thead>
             <tr>
