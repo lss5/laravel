@@ -41,16 +41,24 @@ class MessageController extends Controller
             'text' => 'required',
         ]);
 
-        $lead = Lead::find($request->input('lead_id'));
-        if ($lead) {
+        try {
+            $lead = Lead::find($request->input('lead_id'));
+            if (!$lead)
+                throw new \Exception('Пользователь не найден');
+
+            $status = VKApi::messageSend($lead->id, $request->text);
+            if (isset($status['error']))
+                throw new \Exception($status['error']['code'].'-'.$status['error']['description']);
+
             $lead->messages()->create([
                 'text' => $request->text,
                 'direction' => 'out',
             ]);
-            VKApi::messageSend($lead->id, $request->text);
+        } catch (\Exception $e) {
+            return redirect()->route('admin.lead.list')->withErrors($e->getMessage());
         }
 
-        return redirect()->route('admin.lead.list');
+        return redirect()->route('admin.lead.list')->with('status', 'Сообщение отправлено');
     }
 
     // public function destroy(Request $request, $id)

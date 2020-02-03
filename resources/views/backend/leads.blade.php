@@ -12,6 +12,11 @@
             </ul>
         </div>
     @endif
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
     <table class="table table-striped">
         <thead>
             <tr>
@@ -34,17 +39,17 @@
                     <td>{{ $lead->lastMessage['text'] }}</td>
                     <td class="text-center text-primary">
                         <a href="{{ route('admin.message.create', ['lead_id' => $lead->id]) }}">
-                            <i class="fas fa-paper-plane"></i>
+                            <button type="button" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
                         </a>
                     </td>
                     <td class="text-center text-danger">
-                        <form action="{{ route('admin.lead.destroy', ['id' => $lead->id]) }}" method="POST">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </form>
+                        {{ Form::open(['route' => ['admin.lead.destroy', $lead->id], 'method' => 'delete']) }}
+                            {{ Form::button('<i class="fas fa-trash"></i>', [
+                                'type' => 'submit',
+                                'class' => 'btn btn-danger',
+                                'onclick'=>'return confirm("Are you sure?")',
+                            ]) }}
+                        {{ Form::close() }}
                     </td>
                 </tr>
             @empty

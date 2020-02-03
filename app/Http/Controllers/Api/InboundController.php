@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 use App\Message;
 use App\Lead;
@@ -48,8 +49,7 @@ class InboundController extends Controller
             $message = new Message();
             $message->sendAnswer($lead->id);
         } catch (\Exception $e) {
-            //TODO: Добавить запись логов в случае ошибки
-            var_dump($e->getMessage());
+            log::error($e->getMessage());
         }
     }
 }

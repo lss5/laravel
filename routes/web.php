@@ -37,4 +37,7 @@ Route::middleware(['auth'])->prefix('admin')->namespace('Backend')->name('admin.
     Route::get('/workflows', 'WorkflowController@index')->name('workflow.index');
     Route::get('/workflows/create', 'WorkflowController@create')->name('workflow.create');
 
+    Route::get('/notifications', 'NotificationController@index')->name('notification.index');
+    Route::match(['post', 'get'], '/notifications/create', 'NotificationController@create')->name('notification.create');
+    Route::post('/notifications/store', 'NotificationController@store')->name('notification.store');
 });

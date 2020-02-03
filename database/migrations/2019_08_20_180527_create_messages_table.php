@@ -17,7 +17,7 @@ class CreateMessagesTable extends Migration
             $table->increments('id');
             $table->integer('lead_id')->index();
             $table->string('direction');
-            $table->text('text');
+            $table->text('text')->default('empty message');
             $table->timestamps();
             $table->softDeletes();
         });

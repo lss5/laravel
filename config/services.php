@@ -50,6 +50,7 @@ return [
         'secret_key' => '4ee4ea3d0591f335b48c1637917bbcbd',
         'vk_api_version' => '5.95',
         'vk_api_url' => 'https://api.vk.com/method/',
+        'vk_group_id' => '180712048',
     ],
 
 ];

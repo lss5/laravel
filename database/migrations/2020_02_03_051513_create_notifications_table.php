@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLeadsTable extends Migration
+class CreateNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateLeadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('leads', function (Blueprint $table) {
-            $table->integer('id')->primary();
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->boolean('allow_message')->nullable();
+        Schema::create('notifications', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('count');
+            $table->text('message');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -30,6 +28,6 @@ class CreateLeadsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('leads');
+        Schema::dropIfExists('notifications');
     }
 }

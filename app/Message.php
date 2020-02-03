@@ -23,6 +23,7 @@ class Message extends Model
 
     public function sendAnswer($lead_id)
     {
+        // var_dump($lead_id);
         // $last_message = Lead::find($lead_id)->messages()->orderBy('created_at', 'desc')->first()->id;
         // var_dump($last_message);
         return true;

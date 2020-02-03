@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Lead;
-use App\Message;
 
 class LeadController extends Controller
 {

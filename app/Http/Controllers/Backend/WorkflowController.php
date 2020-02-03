@@ -11,4 +11,9 @@ class WorkflowController extends Controller
     {
         return view('backend.workflow.index'); //->with(['messages' => Message::getMessages()]);
     }
+
+    public function create()
+    {
+        return view('backend.worflow.create'); //->with(['lead' => $request->input('lead_id')]);
+    }
 }
