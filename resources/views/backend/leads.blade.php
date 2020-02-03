@@ -47,7 +47,7 @@
                             {{ Form::button('<i class="fas fa-trash"></i>', [
                                 'type' => 'submit',
                                 'class' => 'btn btn-danger',
-                                'onclick'=>'return confirm("Are you sure?")',
+                                'onclick'=>'return confirm("Удалить ?")',
                             ]) }}
                         {{ Form::close() }}
                     </td>

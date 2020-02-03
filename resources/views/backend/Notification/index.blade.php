@@ -18,7 +18,11 @@
             </div>
         @endif
         {{ Form::open(['route' => 'admin.notification.create', 'method' => 'post']) }}
-            {{ Form::submit('Собрать базу') }}
+            {{ Form::button('Собрать базу',[
+                'type' => 'submit',
+                'class' => 'btn btn-success',
+            ]) }}
+            <small id="emailHelp" class="form-text text-muted">Для отправки сообщений необходимо собрать базу пользователей подписанных на ваше сообщество</small>
         {{ Form::close() }}
     </div>
     <div class="container mt-3">
@@ -45,5 +49,6 @@
                 @endforelse
             </tbody>
         </table>
+        {{ $notifications->links() }}
     </div>
 @endsection

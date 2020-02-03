@@ -15,13 +15,9 @@
     </div>
     <div class="container">
         {{ Form::open(['route' => 'admin.notification.store', 'method' => 'post']) }}
-            <div class="form-group sm-6">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Количество пользователей</span>
-                    </div>
-                    {{ Form::number('count_users', $count_users, ['readonly' => true, 'class' => 'form-control']) }}
-                </div>
+            {{ Form::hidden('count_users', $count_users) }}
+            <div class="form-group">
+                <h5>Количество пользователей <span class="badge badge-success">{{ $count_users }}</span></h5>
             </div>
             <div class="form-group">
                 <div class="input-group">

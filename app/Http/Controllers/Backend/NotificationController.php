@@ -13,7 +13,9 @@ class NotificationController extends Controller
 {
     public function index(Request $request)
     {
-        return view('backend.notification.index')->with(['notifications' => Notification::orderBy('created_at', 'desc')->get()]);
+        return view('backend.notification.index')->with([
+            'notifications' => Notification::orderBy('created_at', 'desc')->simplePaginate(6),
+        ]);
     }
 
     public function create(Request $request)
@@ -41,6 +43,7 @@ class NotificationController extends Controller
             'count_users' => 'required|integer'
         ]);
         $message = $request->input('message');
+        $count = $request->input('count_users');
 
         Lead::where('allow_message', 1)->select('id')->chunk(100, function($leads) use ($message){
             $leadIds = [];
@@ -57,10 +60,10 @@ class NotificationController extends Controller
         });
 
         $notification = new Notification;
-        $notification->count = $request->input('count_users');
+        $notification->count = 
         $notification->message = $message;
         $notification->save();
 
-        return redirect()->route('admin.notification.index')->with('status', 'Рассылка прошла успешно!');
+        return redirect()->route('admin.notification.index')->with('status', "Сообщение отправлено {$count} пользователю(лям)");
     }
 }
