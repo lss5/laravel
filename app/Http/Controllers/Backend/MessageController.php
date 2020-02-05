@@ -58,7 +58,7 @@ class MessageController extends Controller
             return redirect()->route('admin.lead.list')->withErrors($e->getMessage());
         }
 
-        return redirect()->route('admin.lead.list')->with('status', 'Сообщение отправлено');
+        return redirect()->route('admin.lead.list')->with('success', 'Сообщение отправлено');
     }
 
     // public function destroy(Request $request, $id)

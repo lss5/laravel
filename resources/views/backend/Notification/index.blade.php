@@ -12,9 +12,9 @@
                 </ul>
             </div>
         @endif
-        @if (session('status'))
+        @if (session('success'))
             <div class="alert alert-success">
-                {{ session('status') }}
+                {{ session('success') }}
             </div>
         @endif
         {{ Form::open(['route' => 'admin.notification.create', 'method' => 'post']) }}

@@ -64,6 +64,6 @@ class NotificationController extends Controller
         $notification->message = $message;
         $notification->save();
 
-        return redirect()->route('admin.notification.index')->with('status', "Сообщение отправлено {$count} пользователю(лям)");
+        return redirect()->route('admin.notification.index')->with('success', "Сообщение отправлено {$count} пользователю(лям)");
     }
 }

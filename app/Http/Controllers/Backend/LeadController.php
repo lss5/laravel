@@ -24,6 +24,7 @@ class LeadController extends Controller
         $lead = Lead::find($id);
         $lead->messages()->delete();
         $lead->delete();
-        return redirect()->route('admin.lead.list');
+
+        return redirect()->route('admin.lead.list')->with('success', 'Пользователь удален');
     }
 }

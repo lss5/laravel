@@ -16,4 +16,15 @@ class AnswerController extends Controller
     {
         return view('backend.answer.create'); //->with(['lead' => $request->input('lead_id')]);
     }
+
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'label' => 'alpha',
+            'message' => 'required',
+            'answer' => 'required'
+        ]);
+
+        return redirect()->route('admin.answer.index')->with('status', 'Ответ на сообщение сохранен');
+    }
 }
