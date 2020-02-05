@@ -60,7 +60,7 @@ class NotificationController extends Controller
         });
 
         $notification = new Notification;
-        $notification->count = 
+        $notification->count = $count;
         $notification->message = $message;
         $notification->save();
 

@@ -20,17 +20,13 @@
                 <h5>Количество пользователей <span class="badge badge-success">{{ $count_users }}</span></h5>
             </div>
             <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Сообщение</span>
-                    </div>
-                    {{ Form::textarea('message', '', [
-                        'class' => 'form-control',
-                        'aria-label' => 'Сообщение',
-                        'placeholder' => 'Введите ваше сообщение',
-                        'rows' => '4'
-                    ]) }}
-                </div>
+                {{ Form::label('message', 'Сообщение') }}
+                {{ Form::textarea('message', '', [
+                    'class' => 'form-control',
+                    'aria-label' => 'Сообщение',
+                    'placeholder' => 'Введите ваше сообщение',
+                    'rows' => '4'
+                ]) }}
             </div>
             {{ Form::submit('Отправить', ['class' => 'btn btn-success']) }}
         {{ Form::close() }}

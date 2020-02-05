@@ -36,7 +36,7 @@
                         <li class="nav-item"><a class="nav-link" href="{{ route('admin.index') }}">Панель управления</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('admin.setting.index') }}">Настройки</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('admin.lead.list') }}">Профили</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('admin.workflow.index') }}">Процесс</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('admin.answer.index') }}">Ответы</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('admin.notification.index') }}">Рассылка</a></li>
                     </ul>
 

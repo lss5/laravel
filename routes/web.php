@@ -34,8 +34,9 @@ Route::middleware(['auth'])->prefix('admin')->namespace('Backend')->name('admin.
     Route::post('/messages/store', 'MessageController@store')->name('message.store');
     Route::delete('/messages/{id}', 'MessageController@destroy')->name('message.destroy')->where('id', '[0-9]+');;
 
-    Route::get('/workflows', 'WorkflowController@index')->name('workflow.index');
-    Route::get('/workflows/create', 'WorkflowController@create')->name('workflow.create');
+    Route::get('/answers', 'AnswerController@index')->name('answer.index');
+    Route::get('/answers/create', 'AnswerController@create')->name('answer.create');
+    Route::post('/answers/store', 'AnswerController@store')->name('answer.store');
 
     Route::get('/notifications', 'NotificationController@index')->name('notification.index');
     Route::match(['post', 'get'], '/notifications/create', 'NotificationController@create')->name('notification.create');
