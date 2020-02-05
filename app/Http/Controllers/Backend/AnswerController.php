@@ -20,7 +20,7 @@ class AnswerController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'label' => 'alpha',
+            'label' => 'alpha_dash',
             'message' => 'required',
             'answer' => 'required'
         ]);

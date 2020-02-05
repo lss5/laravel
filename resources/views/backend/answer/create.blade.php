@@ -27,8 +27,9 @@
             <div class="col-lg-10 col-xs-12">
                 {{ Form::select('leadType', [
                         'new' => 'Новый',
-                        'exist' => 'Существующий'
-                    ], 'new', [
+                        'exist' => 'Существующий',
+                        'any' => 'Любой'
+                    ], 'any', [
                     'class' => 'form-control',
                 ]) }}
             </div>
