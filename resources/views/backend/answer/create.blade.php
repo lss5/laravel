@@ -39,7 +39,8 @@
             <div class="form-group col-md-4 col-xs-12">
                 {{ Form::select('typeEntryMessage', [
                         'exactly' => 'Точное совпадение',
-                        'exist' => 'Содержит'
+                        'exist' => 'Содержит',
+                        'all' => 'Любое',
                     ], 'exist', [
                     'class' => 'form-control',
                 ]) }}
