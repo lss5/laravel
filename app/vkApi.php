@@ -4,14 +4,19 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Setting;
+
 class VKApi extends Model
 {
+    const VK_API_URL = 'https://api.vk.com/method/';
+    const VK_API_VERSION = '5.95';
+
     public static function call($method, array $params)
     {
-        $params['access_token'] = config('services.vk.access_token');
-        $params['v'] = config('services.vk.vk_api_version');
+        $params['access_token'] = Setting::$access_token;
+        $params['v'] = self::VK_API_VERSION;
 
-        $url = config('services.vk.vk_api_url');
+        $url = self::VK_API_URL;
         $query = http_build_query($params);
         $url = $url.$method.'?'.$query;
     
@@ -51,7 +56,7 @@ class VKApi extends Model
     public static function messagesGroupAllowed($user_id)
     {
         return self::call('messages.isMessagesFromGroupAllowed', [
-            'group_id' => config('services.vk.vk_group_id'),
+            'group_id' => Setting::$group_id,
             'user_id' => $user_id,
         ]);
     }

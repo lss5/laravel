@@ -15,9 +15,9 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('lead_id')->index();
+            $table->integer('lead_id');
             $table->string('direction');
-            $table->text('text')->default('empty message');
+            $table->text('text')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

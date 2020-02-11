@@ -14,9 +14,13 @@ class CreateSettingsTable extends Migration
     public function up()
     {
         Schema::create('settings', function (Blueprint $table) {
-            $table->string('key', 40)->unique();
-            $table->string('value', 255);
-            $table->boolean('serialized')->default(0);
+            $table->increments('id');
+            $table->integer('user_id');
+            $table->string('confirmation_token', 255);
+            $table->string('secret_key', 255);
+            $table->string('access_token', 255)->nullable();
+            $table->string('vk_id_group', 255);
+            $table->timestamps();
         });
     }
 

@@ -16,8 +16,9 @@
     <div class="container">
         {{ Form::open(['route' => 'admin.notification.store', 'method' => 'post']) }}
             {{ Form::hidden('count_users', $count_users) }}
+            {{ Form::hidden('group', $group) }}
             <div class="form-group">
-                <h5>Количество пользователей <span class="badge badge-success">{{ $count_users }}</span></h5>
+                <h5>Количество пользователей <span class="badge badge-success">{{ $count_users }}</span>, для группы <span class="badge badge-success">{{ $group }}</span></h5>
             </div>
             <div class="form-group">
                 {{ Form::label('message', 'Сообщение') }}

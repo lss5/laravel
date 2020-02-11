@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Setting;
 
 class CheckInboundKey
 {
@@ -15,10 +16,14 @@ class CheckInboundKey
      */
     public function handle($request, Closure $next)
     {
-        $secret_key = config('services.vk.secret_key');
+        $setting = Setting::where([['secret_key', $request->secret],['vk_id_group', $request->group_id]])->first();
 
-        if ($request->secret == $secret_key) {
-            return $next($request);
+        if (!empty($setting)) {
+            Setting::$access_token = $setting->access_token;
+            Setting::$confirm_token = $setting->confirm_token;
+            Setting::$group_id = $setting->vk_id_group;
+
+            return $next($request, $setting);
         }
 
         return response('ok', 200);

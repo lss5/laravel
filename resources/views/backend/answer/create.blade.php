@@ -14,17 +14,18 @@
     @endif
     {{ Form::open(['route' => 'admin.answer.store', 'method' => 'post']) }}
         <div class="form-group row">
-            {{ Form::label('label', 'Название', ['class' => 'col-lg-2 col-xs-12 col-form-label']) }}
-            <div class="col-lg-10 col-xs-12">
-                {{ Form::input('text', 'label', null, [
+            {{ Form::label('group', 'Группа', ['class' => 'col-lg-1 col-xs-12 col-form-label']) }}
+            <div class="col-lg-4 col-xs-12">
+                {{ Form::select('group', [
+                        '1' => '1',
+                        '2' => '3',
+                        '3' => '3'
+                    ], '2', [
                     'class' => 'form-control',
-                    'placeholder' => 'Название'
                 ]) }}
             </div>
-        </div>
-        <div class="form-group row">
             {{ Form::label('leadType', 'Тип пользователя', ['class' => 'col-lg-2 col-xs-12 col-form-label']) }}
-            <div class="col-lg-10 col-xs-12">
+            <div class="col-lg-4 col-xs-12">
                 {{ Form::select('leadType', [
                         'new' => 'Новый',
                         'exist' => 'Существующий',

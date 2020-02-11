@@ -9,7 +9,7 @@ class AnswerController extends Controller
 {
     public function index()
     {
-        return view('backend.answer.index'); //->with(['messages' => Message::getMessages()]);
+        return view('backend.answer.index');
     }
 
     public function create()

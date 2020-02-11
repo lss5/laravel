@@ -18,9 +18,17 @@
             </div>
         @endif
         {{ Form::open(['route' => 'admin.notification.create', 'method' => 'post']) }}
+            <div class="form-group row">
+                {{ Form::label('group', 'Группа', ['class' => 'col-lg-1 col-xs-12 col-form-label']) }}
+                <div class="col-lg-4 col-xs-12">
+                {{ Form::select('group', $groups, null, [
+                        'class' => 'form-control',
+                    ]) }}
+                </div>
+            </div>
             {{ Form::button('Собрать базу',[
                 'type' => 'submit',
-                'class' => 'btn btn-success',
+                'class' => 'btn btn-success col-lg-5',
             ]) }}
             <small id="emailHelp" class="form-text text-muted">Для отправки сообщений необходимо собрать базу пользователей подписанных на ваше сообщество</small>
         {{ Form::close() }}

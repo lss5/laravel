@@ -43,14 +43,4 @@ return [
             'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),
         ],
     ],
-
-    'vk' => [
-        'confirmation_token' => 'de3ff9cd', //Строка для подтверждения адреса сервера из настроек Callback API
-        'access_token' => 'd673dda0e31752bd77a4059f18ab9392d357238d3b62709ec89fcb64d8b4ecfd48a0aa27c98d9e7c74d56', //Ключ доступа сообщества
-        'secret_key' => '4ee4ea3d0591f335b48c1637917bbcbd',
-        'vk_api_version' => '5.95',
-        'vk_api_url' => 'https://api.vk.com/method/',
-        'vk_group_id' => '180712048',
-    ],
-
 ];

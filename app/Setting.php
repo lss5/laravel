@@ -3,20 +3,33 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+
+use App\Setting;
 
 class Setting extends Model
 {
-    public $timestamps = false;
+    protected $guarded = [];
 
-    public static function getSettings($key = null)
+    public static $access_token;
+    public static $confirm_token;
+    public static $group_id;
+
+    public function user()
     {
-        $settings = $key ? self::where('key', $key)->first() : self::all();
+        return $this->belongsTo('App\User');
+    }
 
-        $collect = collect();
-        foreach ($settings as $setting) {
-            $collect->put($setting->key, $setting->value);
+    public static function set_user_setting($user_id, $group_id)
+    {
+        $settings = self::where(['user_id' => $user_id, 'vk_id_group' => $group_id])->orderBy('created_at', 'desc')->first();
+        if (!empty($settings)) {
+            self::$access_token = $settings->access_token;
+            self::$confirm_token = $settings->confirm_token;
+            self::$group_id = $settings->vk_id_group;
+            return true;
+        } else {
+            return false;
         }
-
-        return $collect;
     }
 }

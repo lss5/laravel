@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 use App\Message;
 use App\Lead;
 use App\VKApi;
+use App\Setting;
 
 class MessageController extends Controller
 {
@@ -25,7 +27,8 @@ class MessageController extends Controller
         $lead = Lead::find($request->input('lead_id'));
         if ($lead) {
             return view('backend.message.create')->with([
-                'lead_id' => $request->input('lead_id'),
+                'lead_id' => $lead->id,
+                'group_id' => $lead->group_id,
                 'lead_name' => $lead->first_name . ' ' . $lead->last_name,
             ]);
         } else {
@@ -38,8 +41,10 @@ class MessageController extends Controller
     {
         $this->validate($request, [
             'lead_id' => 'required|integer',
+            'group_id' => 'required|integer',
             'text' => 'required',
         ]);
+        Setting::set_user_setting(Auth::id(), $request->input('group_id'));
 
         try {
             $lead = Lead::find($request->input('lead_id'));

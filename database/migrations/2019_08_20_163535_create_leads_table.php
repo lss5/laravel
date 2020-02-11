@@ -14,12 +14,13 @@ class CreateLeadsTable extends Migration
     public function up()
     {
         Schema::create('leads', function (Blueprint $table) {
-            $table->integer('id')->primary();
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
+            $table->increments('id');
+            $table->string('first_name', 100)->nullable();
+            $table->string('last_name', 100)->nullable();
             $table->boolean('allow_message')->nullable();
+            $table->integer('group_id');
             $table->timestamps();
-            $table->softDeletes();
+            // $table->softDeletes();
         });
     }
 
