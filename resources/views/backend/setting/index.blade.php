@@ -25,7 +25,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col" width="30%">Группа</th>
+                <th scope="col" width="30%">Название</th>
                 <th scope="col" width="20%">Дата добавления</th>
                 <th scope="col" width="10%" class="text-center">EDIT</th>
                 <th scope="col" width="10%" class="text-center">DEL</th>
@@ -34,8 +34,8 @@
         <tbody>
             @forelse ($settings as $setting)
                 <tr>
-                    <td>{{ $setting->vk_id_group }}</td>
-                    <td>{{ $setting->created_at->format('d-m-Y h:m') }}</td>
+                    <td>{{ $setting->name }} ({{ $setting->vk_id_group }})</td>
+                    <td>{{ $setting->created_at->format('d-m-Y h:i') }}</td>
                     <td class="text-center text-primary">
                         <a href="{{ route('admin.setting.edit', ['id' => $setting->id]) }}">
                             <button type="button" class="btn btn-primary"><i class="fas fa-edit"></i></button>

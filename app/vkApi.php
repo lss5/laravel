@@ -9,17 +9,32 @@ use App\Setting;
 class VKApi extends Model
 {
     const VK_API_URL = 'https://api.vk.com/method/';
-    const VK_API_VERSION = '5.95';
 
     public static function call($method, array $params)
     {
-        $params['access_token'] = Setting::$access_token;
-        $params['v'] = self::VK_API_VERSION;
+        $params['access_token'] = Setting::getAccessToken();
+        $params['v'] = env('VK_API_VERSION', '5.95');
 
-        $url = self::VK_API_URL;
+        $url = env('VK_API_URL', 'https://api.vk.com/method/');
         $query = http_build_query($params);
         $url = $url.$method.'?'.$query;
     
+        $response = json_decode(file_get_contents($url), true);
+        if (isset($response['error']))
+            throw new \Exception($response['error']['error_code'] . ': ' . $response['error']['error_msg']);
+
+        return $response['response'];
+    }
+
+    public static function callService($method, array $params)
+    {
+        $params['access_token'] = env('VK_SERVICE_KEY');
+        $params['v'] = env('VK_API_VERSION', '5.95');
+
+        $url = env('VK_API_URL', 'https://api.vk.com/method/');
+        $query = http_build_query($params);
+        $url = $url.$method.'?'.$query;
+
         $response = json_decode(file_get_contents($url), true);
         if (isset($response['error']))
             throw new \Exception($response['error']['error_code'] . ': ' . $response['error']['error_msg']);
@@ -56,8 +71,23 @@ class VKApi extends Model
     public static function messagesGroupAllowed($user_id)
     {
         return self::call('messages.isMessagesFromGroupAllowed', [
-            'group_id' => Setting::$group_id,
+            'group_id' => Setting::getGroupId(),
             'user_id' => $user_id,
+        ]);
+    }
+
+    public static function resolveScreenName($name)
+    {
+        return self::callService('utils.resolveScreenName', [
+            'screen_name' => $name,
+        ]);
+    }
+
+    public static function groupsGetById($name, $fields = 'id, name')
+    {
+        return self::callService('groups.getById', [
+            'group_id' => $name,
+            'fields' => $fields,
         ]);
     }
 }

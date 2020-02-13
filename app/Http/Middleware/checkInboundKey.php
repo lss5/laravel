@@ -19,9 +19,9 @@ class CheckInboundKey
         $setting = Setting::where([['secret_key', $request->secret],['vk_id_group', $request->group_id]])->first();
 
         if (!empty($setting)) {
-            Setting::$access_token = $setting->access_token;
-            Setting::$confirm_token = $setting->confirm_token;
-            Setting::$group_id = $setting->vk_id_group;
+            Setting::setAccessToken($setting->access_token);
+            Setting::setConfirmToken($setting->confirm_token);
+            Setting::setGroupId($setting->vk_id_group);
 
             return $next($request, $setting);
         }
