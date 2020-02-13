@@ -17,6 +17,27 @@
                 {{ session('status') }}
             </div>
         @endif
-        <a href="{{ route('admin.answer.create') }}" class="btn btn-success" role="button">Создать ответ</a>
+        <div class="form-group">
+            <a href="{{ route('admin.answer.create') }}" class="btn btn-success" role="button">Создать ответ</a>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col" width="5%">Группа</th>
+                    <th scope="col" width="5%">Тип пользователей</th>
+                    <th scope="col" colspan="2" width="15%">Входящее сообщение</th>
+                    <th scope="col" width="50%" class="text-center">Ответ</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($answers as $answer)
+                    <td>{{ $answer->group_id }}</td>
+                    <td>{{ $answer->lead_type }}</td>
+                    <td>{{ $answer->entry_message_type }}</td>
+                    <td>{{ $answer->entry_message }}</td>
+                    <td>{{ $answer->output_message }}</td>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 @endsection
