@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 
@@ -16,15 +15,10 @@ class NotificationController extends Controller
 {
     public function index(Request $request)
     {
-        $collect = new Collection();
-        $groups = Lead::select('group_id')->groupBy('group_id')->get();
-        foreach ($groups as $group) {
-            $collect->put($group->group_id,$group->group_id);
-        }
-
+        $groups = Lead::select('group_id')->groupBy('group_id')->pluck('group_id', 'group_id');
         return view('backend.notification.index')->with([
             'notifications' => Notification::orderBy('created_at', 'desc')->simplePaginate(6),
-            'groups' => $collect,
+            'groups' => $groups,
         ]);
     }
 

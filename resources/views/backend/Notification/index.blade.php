@@ -30,7 +30,7 @@
                 'type' => 'submit',
                 'class' => 'btn btn-success col-lg-5',
             ]) }}
-            <small id="emailHelp" class="form-text text-muted">Для отправки сообщений необходимо собрать базу пользователей подписанных на ваше сообщество</small>
+            <small class="form-text text-muted">Для отправки сообщений необходимо собрать базу пользователей подписанных на ваше сообщество</small>
         {{ Form::close() }}
     </div>
     <div class="container mt-3">
