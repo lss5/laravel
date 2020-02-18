@@ -13,7 +13,7 @@ class AnswerController extends Controller
 {
     public function index()
     {
-        return view('backend.answer.index')->with(['answers' => Answer::all()]);
+        return view('backend.answer.index')->with(['answers' => Answer::getAnswers()]);
     }
 
     public function create()
@@ -42,6 +42,16 @@ class AnswerController extends Controller
             'output_message' => $request->input('outputMessage'),
         ]);
 
-        return redirect()->route('admin.answer.index')->with('status', 'Ответ на сообщение сохранен');
+        return redirect()->route('admin.answer.index')->with('success', 'Ответ на сообщение сохранен');
+    }
+
+    public function destroy(Request $request, $id)
+    {
+        if (Answer::destroy($id)) {
+            return redirect()->route('admin.answer.index')->with('success', 'Ответ удален');
+        } else {
+            return redirect()->route('admin.answer.index')->withErrors('Ошибка удаления');
+        }
+
     }
 }

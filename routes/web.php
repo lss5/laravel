@@ -34,6 +34,7 @@ Route::middleware(['auth'])->prefix('admin')->namespace('Backend')->name('admin.
     Route::get('/answers', 'AnswerController@index')->name('answer.index');
     Route::get('/answers/create', 'AnswerController@create')->name('answer.create');
     Route::post('/answers/store', 'AnswerController@store')->name('answer.store');
+    Route::delete('/answers/{id}', 'AnswerController@destroy')->name('answer.destroy')->where('id', '[0-9]+');;
 
     Route::get('/notifications', 'NotificationController@index')->name('notification.index');
     Route::match(['post', 'get'], '/notifications/create', 'NotificationController@create')->name('notification.create');

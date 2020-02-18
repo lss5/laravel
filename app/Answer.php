@@ -18,7 +18,6 @@ class Answer extends Model
         'exist' => 'Существующий',
         'all' => 'Любой',
     ];
-
     public static $leadTypeDefault = 'all';
 
     public static $entryMessageTypeDom = [
@@ -26,6 +25,18 @@ class Answer extends Model
         'exist' => 'Содержит',
         'all' => 'Любое',
     ];
-
     public static $entryMessageTypeDefault = 'all';
+
+    /**
+     * All Answers with replace select values
+     */
+    public static function getAnswers()
+    {
+        $answers = self::all()->transform(function($item, $key){
+            $item->lead_type = self::$leadTypeDom[$item->lead_type];
+            $item->entry_message_type = self::$entryMessageTypeDom[$item->entry_message_type];
+            return $item;
+        });
+        return $answers;
+    }
 }
