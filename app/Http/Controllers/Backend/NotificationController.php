@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use App\Lead;
 use App\VKApi;
 use App\Notification;
-use App\Setting;
 
 class NotificationController extends Controller
 {
@@ -24,14 +23,9 @@ class NotificationController extends Controller
 
     public function create(Request $request)
     {
-        $this->validate($request, [
-            'group' => 'required|integer',
-        ]);
-
         $group = $request->input('group');
         $count = 0;
         $leads = Lead::all();
-        Setting::set_user_setting(Auth::id(), $group);
         try {
             foreach ($leads as $lead) {
                 if ($lead->checkAvailable())
@@ -51,12 +45,9 @@ class NotificationController extends Controller
         $this->validate($request, [
             'message' => 'required',
             'count_users' => 'required|integer',
-            'group' => 'required|integer',
         ]);
         $message = $request->input('message');
         $count = 0;
-        $group = $request->input('group');
-        Setting::set_user_setting(Auth::id(), '180712048');
 
         try {
             Lead::where('allow_message', 1)->select('id')->chunk(100, function($leads) use ($message, $request, &$count){
@@ -65,7 +56,6 @@ class NotificationController extends Controller
                     $leadIds[] = $lead->id;
                 }
                 $leads_str = implode(',', $leadIds);
-                // var_dump(intval($request->input('count_users')) < 100); die();
 
                 $status = VKApi::messagesSend($leads_str, $message);
                 $count = intval($request->input('count_users')) < 100 ? intval($request->input('count_users')) : $count + 100;
@@ -73,7 +63,6 @@ class NotificationController extends Controller
 
             Notification::create([
                 'count' => $count,
-                'group_id' => $group,
                 'message' => $message,
             ]);
 

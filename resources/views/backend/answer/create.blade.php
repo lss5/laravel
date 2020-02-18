@@ -14,12 +14,6 @@
     @endif
     {{ Form::open(['route' => 'admin.answer.store', 'method' => 'post']) }}
         <div class="form-group row">
-            {{ Form::label('group', 'Группа', ['class' => 'col-lg-1 col-xs-12 col-form-label']) }}
-            <div class="col-lg-4 col-xs-12">
-                {{ Form::select('group', $groups, null, [
-                    'class' => 'form-control',
-                ]) }}
-            </div>
             {{ Form::label('leadType', 'Тип пользователя', ['class' => 'col-lg-2 col-xs-12 col-form-label']) }}
             <div class="col-lg-4 col-xs-12">
                 {{ Form::select('leadType', $leadTypes, $leadTypeDefault, [

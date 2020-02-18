@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Message;
 use App\Lead;
 use App\VKApi;
-use App\Setting;
 
 class MessageController extends Controller
 {
@@ -41,17 +40,15 @@ class MessageController extends Controller
     {
         $this->validate($request, [
             'lead_id' => 'required|integer',
-            'group_id' => 'required|integer',
             'text' => 'required',
         ]);
-        Setting::set_user_setting(Auth::id(), $request->input('group_id'));
 
         try {
             $lead = Lead::find($request->input('lead_id'));
             if (!$lead)
                 throw new \Exception('Пользователь не найден');
 
-            $status = VKApi::messageSend($lead->id, $request->text);
+            $status = VKApi::messageSend($lead->id, $request->input('text'));
             if (isset($status['error']))
                 throw new \Exception($status['error']['code'].'-'.$status['error']['description']);
 
@@ -65,11 +62,4 @@ class MessageController extends Controller
 
         return redirect()->route('admin.lead.list')->with('success', 'Сообщение отправлено');
     }
-
-    // public function destroy(Request $request, $id)
-    // {
-    //     Message::destroy($id);
-
-    //     return redirect()->route('admin.lead.list');
-    // }
 }

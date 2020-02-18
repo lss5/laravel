@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Answer extends Model
 {
     protected $fillable = [
-        'group_id',
         'lead_type',
         'entry_message_type',
         'entry_message',

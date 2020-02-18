@@ -22,13 +22,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware(['auth'])->prefix('admin')->namespace('Backend')->name('admin.')->group(function(){
     Route::get('/', 'DashboardController@index')->name('index');
 
-    Route::get('/settings', 'SettingController@index')->name('setting.index');
-    Route::get('/settings/create', 'SettingController@create')->name('setting.create');
-    Route::post('/settings', 'SettingController@store')->name('setting.store');
-    Route::get('/settings/{id}/edit/', 'SettingController@edit')->name('setting.edit');
-    Route::put('/settings/{id}', 'SettingController@update')->name('setting.update');
-    Route::delete('/settings/{id}', 'SettingController@destroy')->name('setting.destroy');
-
     Route::match(['get', 'post'], '/leads', 'LeadController@list')->name('lead.list');
     Route::get('/leads/{id}', 'LeadController@index')->name('lead.index')->where('id', '[0-9]+');;
     Route::delete('/leads/{id}', 'LeadController@destroy')->name('lead.destroy')->where('id', '[0-9]+');;

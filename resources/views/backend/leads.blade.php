@@ -21,7 +21,6 @@
         <thead>
             <tr>
                 <th scope="col" width="15%">Профиль</th>
-                <th scope="col" width="15%">Группа</th>
                 <th scope="col" width="5%">Тип</th>
                 <th scope="col">Последнее сообщение</th>
                 <th scope="col" width="5%" class="text-center">MES</th>
@@ -32,12 +31,11 @@
             @forelse ($leads as $lead)
                 <tr>
                     <td>{{ $lead->first_name . ' ' . $lead->last_name }} ({{ $lead->id }})</td>
-                    <td>{{ $lead->group_id }}</td>
                     <td>
                         @if ($lead->lastMessage['direction'] == 'out')
-                            <i class="fas fa-arrow-circle-left"></i> Исходящее
+                            <i class="fas fa-arrow-circle-left"></i>
                         @elseif ($lead->lastMessage['direction'] == 'in')
-                            <i class="fas fa-arrow-circle-right"></i> Входящее
+                            <i class="fas fa-arrow-circle-right"></i>
                         @endif
                     </td>
                     <td>{{ $lead->lastMessage['text'] }}</td>

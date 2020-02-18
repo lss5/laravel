@@ -14,7 +14,6 @@
     @endif
     {{ Form::open(['route' => 'admin.message.store', 'method' => 'post']) }}
         {{ Form::hidden('lead_id', $lead_id) }}
-        {{ Form::hidden('group_id', $group_id) }}
         <div class="form-group">
             {{ Form::label('lead', 'Профиль') }}
             {{ Form::text('lead', $lead_name, ['class' => 'form-control', 'placeholder' => 'Пользователь', 'readonly']) }}

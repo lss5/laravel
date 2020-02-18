@@ -15,7 +15,6 @@ class CreateAnswersTable extends Migration
     {
         Schema::create('answers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('group_id');
             $table->string('lead_type');
             $table->string('entry_message_type');
             $table->string('entry_message')->nullable();
