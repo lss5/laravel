@@ -27,6 +27,8 @@
                     'placeholder' => 'Введите ваше сообщение',
                     'rows' => '4'
                 ]) }}
+                <small class="form-text text-muted">Доступные переменные: {FIRST_NAME} - Имя.</small>
+                <small class="form-text text-muted">Необходимо сохранять регистр переменных.</small>
             </div>
             {{ Form::submit('Отправить', ['class' => 'btn btn-success']) }}
         {{ Form::close() }}

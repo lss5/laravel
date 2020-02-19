@@ -34,14 +34,12 @@ class InboundController extends Controller
         try {
             $lead_id = $request->input("object.user_id");
             $lead_message = $request->input("object.message");
-            $group_id = $request->input("group_id");
 
             if (empty($lead_id))
                 throw new \Exception("Нет идентификатора пользователя");
 
-            $lead = Lead::firstOrNew(['id' => $lead_id, 'group_id' => $group_id]);
+            $lead = Lead::firstOrNew(['id' => $lead_id]);
             $lead->checkNames(); // Обновляем/заполняем данные пользователя
-            $lead->group_id = $group_id;
             $lead->messages()->create([ // Добавляем сообщение к записи пользователя
                 'text' => $lead_message,
                 'direction' => 'in',

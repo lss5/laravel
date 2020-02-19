@@ -43,6 +43,12 @@
                 'placeholder' => 'Сообщение для отправки пользователю'
             ]) }}
         </div>
+        <div class="form-group">
+            {{ Form::checkbox('active', '1', true) }}
+            <label class="form-check-label" for="active">
+                Активно
+            </label>
+        </div>
         {{ Form::button('Сохранить', ['class' => 'btn btn-primary', 'type' => 'submit']) }}
     {{ Form::close() }}
 </div>

@@ -18,7 +18,6 @@ class CreateLeadsTable extends Migration
             $table->string('first_name', 100)->nullable();
             $table->string('last_name', 100)->nullable();
             $table->boolean('allow_message')->nullable();
-            $table->integer('group_id');
             $table->timestamps();
             // $table->softDeletes();
         });

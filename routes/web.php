@@ -28,7 +28,7 @@ Route::middleware(['auth'])->prefix('admin')->namespace('Backend')->name('admin.
 
     Route::get('/messages', 'MessageController@index')->name('message.index');
     Route::get('/messages/create', 'MessageController@create')->name('message.create');
-    Route::post('/messages/store', 'MessageController@store')->name('message.store');
+    Route::post('/messages/send', 'MessageController@send')->name('message.send');
     Route::delete('/messages/{id}', 'MessageController@destroy')->name('message.destroy')->where('id', '[0-9]+');;
 
     Route::get('/answers', 'AnswerController@index')->name('answer.index');

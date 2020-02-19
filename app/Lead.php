@@ -23,7 +23,7 @@ class Lead extends Model
 
     public function lastMessage()
     {
-        return $this->hasOne('App\Message')->latest();
+        return $this->hasOne('App\Message')->orderBy('created_at', 'desc')->latest();
     }
 
     /**

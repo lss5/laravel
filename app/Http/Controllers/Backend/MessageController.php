@@ -12,11 +12,6 @@ use App\VKApi;
 
 class MessageController extends Controller
 {
-    public function index()
-    {
-        return view('backend.message.index')->with(['messages' => Message::getMessages()]);
-    }
-
     public function create(Request $request)
     {
         $this->validate($request, [
@@ -27,16 +22,14 @@ class MessageController extends Controller
         if ($lead) {
             return view('backend.message.create')->with([
                 'lead_id' => $lead->id,
-                'group_id' => $lead->group_id,
                 'lead_name' => $lead->first_name . ' ' . $lead->last_name,
             ]);
         } else {
             return back()->withErrors('Not found user for sending message');
         }
-
     }
 
-    public function store(Request $request)
+    public function send(Request $request)
     {
         $this->validate($request, [
             'lead_id' => 'required|integer',

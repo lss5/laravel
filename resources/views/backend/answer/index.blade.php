@@ -23,9 +23,10 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col" width="5%">Тип пользователей</th>
-                    <th scope="col" width="5%">Тип сообщения</th>
-                    <th scope="col" width="15%">Сообщение</th>
+                    <th scope="col" width="5%" class="text-center">Active</th>
+                    <th scope="col" width="5%" class="text-center">Тип пользователей</th>
+                    <th scope="col" width="5%" class="text-center">Тип сообщения</th>
+                    <th scope="col" width="15%" class="text-center">Сообщение</th>
                     <th scope="col" width="50%" class="text-center">Ответ</th>
                     <th scope="col" width="5%" class="text-center">DEL</th>
                 </tr>
@@ -33,6 +34,7 @@
             <tbody>
                 @forelse ($answers as $answer)
                 <tr>
+                    <td>{{ $answer->active }}</td>
                     <td>{{ $answer->lead_type }}</td>
                     <td>{{ $answer->entry_message_type }}</td>
                     <td>{{ $answer->entry_message }}</td>

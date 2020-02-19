@@ -14,10 +14,8 @@ class NotificationController extends Controller
 {
     public function index(Request $request)
     {
-        $groups = Lead::select('group_id')->groupBy('group_id')->pluck('group_id', 'group_id');
         return view('backend.notification.index')->with([
             'notifications' => Notification::orderBy('created_at', 'desc')->simplePaginate(6),
-            'groups' => $groups,
         ]);
     }
 
@@ -43,27 +41,22 @@ class NotificationController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'message' => 'required',
+            'message' => 'required|between:1,4096',
             'count_users' => 'required|integer',
         ]);
-        $message = $request->input('message');
         $count = 0;
 
         try {
-            Lead::where('allow_message', 1)->select('id')->chunk(100, function($leads) use ($message, $request, &$count){
-                $leadIds = [];
-                foreach ($leads as $lead) {
-                    $leadIds[] = $lead->id;
-                }
-                $leads_str = implode(',', $leadIds);
-
-                $status = VKApi::messagesSend($leads_str, $message);
-                $count = intval($request->input('count_users')) < 100 ? intval($request->input('count_users')) : $count + 100;
-            });
+            $leads = Lead::where('allow_message', 1)->get();
+            foreach ($leads as $lead) {
+                $message = str_replace('{FIRST_NAME}', $lead->first_name, $request->message);
+                VKApi::messageSend($lead->id, $message);
+                $count++;
+            }
 
             Notification::create([
                 'count' => $count,
-                'message' => $message,
+                'message' => $request->message,
             ]);
 
             return redirect()->route('admin.notification.index')->with('success', "Сообщение отправлено {$count} пользователю(лям)");

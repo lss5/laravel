@@ -19,6 +19,7 @@ class CreateAnswersTable extends Migration
             $table->string('entry_message_type');
             $table->string('entry_message')->nullable();
             $table->text('output_message');
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }

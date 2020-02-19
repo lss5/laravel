@@ -40,6 +40,7 @@ class AnswerController extends Controller
             'entry_message_type' => $request->input('entryMessageType'),
             'entry_message' => $request->input('entryMessage'),
             'output_message' => $request->input('outputMessage'),
+            'active' => $request->input('active'),
         ]);
 
         return redirect()->route('admin.answer.index')->with('success', 'Ответ на сообщение сохранен');

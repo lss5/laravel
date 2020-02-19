@@ -12,7 +12,7 @@
             </ul>
         </div>
     @endif
-    {{ Form::open(['route' => 'admin.message.store', 'method' => 'post']) }}
+    {{ Form::open(['route' => 'admin.message.send', 'method' => 'post']) }}
         {{ Form::hidden('lead_id', $lead_id) }}
         <div class="form-group">
             {{ Form::label('lead', 'Профиль') }}
