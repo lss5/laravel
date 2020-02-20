@@ -11,6 +11,7 @@ class Answer extends Model
         'entry_message_type',
         'entry_message',
         'output_message',
+        'active',
     ];
 
     public static $leadTypeDom = [

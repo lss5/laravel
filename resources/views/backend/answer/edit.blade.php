@@ -44,7 +44,7 @@
             ]) }}
         </div>
         <div class="form-group">
-            {{ Form::checkbox('active', '1', true) }}
+            {{ Form::checkbox('active', '1') }}
             <label class="form-check-label" for="active">
                 Активно
             </label>

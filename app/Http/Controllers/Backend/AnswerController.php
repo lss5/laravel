@@ -51,7 +51,7 @@ class AnswerController extends Controller
             'entry_message_type' => $request->input('entry_message_type'),
             'entry_message' => $request->input('entry_message'),
             'output_message' => $request->input('output_message'),
-            'active' => $request->input('active'),
+            'active' => $request->has('active') ? true : false,
         ]);
 
         return redirect()->route('admin.answer.index')->with('success', 'Ответ на сообщение сохранен');
@@ -71,7 +71,7 @@ class AnswerController extends Controller
             'entry_message_type' => $request->input('entry_message_type'),
             'entry_message' => $request->input('entry_message'),
             'output_message' => $request->input('output_message'),
-            'active' => $request->input('active'),
+            'active' => $request->has('active') ? true : false,
         ]);
 
         return redirect()->route('admin.answer.index')->with('success', 'Ответ на сообщение сохранен');
