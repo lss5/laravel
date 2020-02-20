@@ -32,8 +32,8 @@ class InboundController extends Controller
     public function newMessage($request)
     {
         try {
-            $lead_id = $request->input("object.user_id");
-            $lead_message = $request->input("object.message");
+            $lead_id = $request->input("object.from_id");
+            $lead_message = $request->input("object.text");
 
             if (empty($lead_id))
                 throw new \Exception("Нет идентификатора пользователя");

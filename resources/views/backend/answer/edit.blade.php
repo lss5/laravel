@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h2>Создать ответ</h2>
+    <h2>Редактировать ответ</h2>
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -12,11 +12,11 @@
             </ul>
         </div>
     @endif
-    {{ Form::open(['route' => 'admin.answer.store', 'method' => 'post']) }}
+    {{ Form::model($answer, ['route' => ['admin.answer.update', $answer->id], 'method' => 'put']) }}
         <div class="form-group row">
             {{ Form::label('lead_type', 'Тип пользователя', ['class' => 'col-lg-2 col-xs-12 col-form-label']) }}
             <div class="col-lg-4 col-xs-12">
-                {{ Form::select('lead_type', $leadTypes, $leadTypeDefault, [
+                {{ Form::select('lead_type', $leadTypes, null, [
                     'class' => 'form-control',
                 ]) }}
             </div>
@@ -24,7 +24,7 @@
         {{ Form::label('entry_message', 'Входящее сообщение') }}
         <div class="form-row">
             <div class="form-group col-md-4 col-xs-12">
-                {{ Form::select('entry_message_type', $entryMessageTypes, $entryMessageTypeDefault, [
+                {{ Form::select('entry_message_type', $entryMessageTypes, null, [
                     'class' => 'form-control',
                 ]) }}
             </div>

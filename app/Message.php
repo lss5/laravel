@@ -27,7 +27,7 @@ class Message extends Model
     public function sendAnswer($lead_id)
     {
         try {
-            $answers = Answer::where('active', '1')->orderBy('created_at')->get();
+            $answers = Answer::where('active', '1')->orderBy('created_at', 'desc')->get();
             if ($answers->count() == 0)
                 throw new \Exception("Не найдены ответы для пользователя {$lead_id}");
 
@@ -36,12 +36,13 @@ class Message extends Model
                 throw new \Exception("Пользователь {$lead_id} не найден");
 
             foreach ($answers as $answer) {
-                $status = VKApi::messageSend($lead->id, $answer->output_message);
+                $out_message = str_replace('{FIRST_NAME}', $lead->first_name, $answer->output_message);
+                $status = VKApi::messageSend($lead->id, $out_message);
                 if (isset($status['error']))
                     throw new \Exception($status['error']['code'].'-'.$status['error']['description']);
 
                 $lead->messages()->create([
-                    'text' => $answer->output_message,
+                    'text' => $out_message,
                     'direction' => 'out',
                 ]);
             }

@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -34,6 +34,8 @@ Route::middleware(['auth'])->prefix('admin')->namespace('Backend')->name('admin.
     Route::get('/answers', 'AnswerController@index')->name('answer.index');
     Route::get('/answers/create', 'AnswerController@create')->name('answer.create');
     Route::post('/answers/store', 'AnswerController@store')->name('answer.store');
+    Route::get('/answers/{id}/edit', 'AnswerController@edit')->name('answer.edit')->where('id', '[0-9]+');
+    Route::put('/answers/{id}', 'AnswerController@update')->name('answer.update')->where('id', '[0-9]+');;
     Route::delete('/answers/{id}', 'AnswerController@destroy')->name('answer.destroy')->where('id', '[0-9]+');;
 
     Route::get('/notifications', 'NotificationController@index')->name('notification.index');

@@ -28,6 +28,7 @@
                     <th scope="col" width="5%" class="text-center">Тип сообщения</th>
                     <th scope="col" width="15%" class="text-center">Сообщение</th>
                     <th scope="col" width="50%" class="text-center">Ответ</th>
+                    <th scope="col" width="5%" class="text-center">EDIT</th>
                     <th scope="col" width="5%" class="text-center">DEL</th>
                 </tr>
             </thead>
@@ -39,6 +40,11 @@
                     <td>{{ $answer->entry_message_type }}</td>
                     <td>{{ $answer->entry_message }}</td>
                     <td>{{ $answer->output_message }}</td>
+                    <td>
+                        <a href="{{ route('admin.answer.edit', ['id' => $answer->id]) }}">
+                            <button type="button" class="btn btn-primary"><i class="fas fa-pen"></i></button>
+                        </a>
+                    </td>
                     <td class="text-center text-danger">
                         {{ Form::open(['route' => ['admin.answer.destroy', $answer->id], 'method' => 'delete']) }}
                             {{ Form::button('<i class="fas fa-trash"></i>', [
