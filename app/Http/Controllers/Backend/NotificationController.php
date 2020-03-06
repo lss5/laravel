@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 use App\Lead;
 use App\VKApi;
@@ -21,18 +22,19 @@ class NotificationController extends Controller
 
     public function create(Request $request)
     {
-        $group = $request->input('group');
-        $count = 0;
-        $leads = Lead::all();
+        $leads = Lead::where('updated_at', '<=', Carbon::now()->subDay())->get();
+        $count_leads = Lead::count();
         try {
+            $count_leads_updated = 0;
             foreach ($leads as $lead) {
                 if ($lead->checkAvailable())
-                    $count++;
+                    $count_leads_updated++;
             }
-            if ($count == 0)
-                throw new \Exception('В базе нет пользователей для отправки сообщения');
 
-            return view('backend.notification.create')->with(['count_users' => $count, 'group' => $group]);
+            return view('backend.notification.create')->with([
+                'count_leads_updated' => $count_leads_updated,
+                'count_leads' => $count_leads
+            ]);
         } catch (\Exception $e) {
             return redirect()->route('admin.notification.index')->withErrors($e->getMessage());
         }
@@ -42,24 +44,23 @@ class NotificationController extends Controller
     {
         $this->validate($request, [
             'message' => 'required|between:1,4096',
-            'count_users' => 'required|integer',
         ]);
-        $count = 0;
 
         try {
+            $count_messages_sent = 0;
             $leads = Lead::where('allow_message', 1)->get();
             foreach ($leads as $lead) {
                 $message = str_replace('{FIRST_NAME}', $lead->first_name, $request->message);
                 VKApi::messageSend($lead->id, $message);
-                $count++;
+                $count_messages_sent++;
             }
 
             Notification::create([
-                'count' => $count,
+                'count' => $count_messages_sent,
                 'message' => $request->message,
             ]);
 
-            return redirect()->route('admin.notification.index')->with('success', "Сообщение отправлено {$count} пользователю(лям)");
+            return redirect()->route('admin.notification.index')->with('success', "Сообщение отправлено {$count_messages_sent} пользователю(лям)");
         } catch (\Exception $e) {
             return redirect()->route('admin.notification.index')->withErrors($e->getMessage());
         }

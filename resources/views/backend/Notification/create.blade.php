@@ -15,9 +15,9 @@
     </div>
     <div class="container">
         {{ Form::open(['route' => 'admin.notification.store', 'method' => 'post']) }}
-            {{ Form::hidden('count_users', $count_users) }}
             <div class="form-group">
-                <h5>Количество пользователей <span class="badge badge-success">{{ $count_users }}</span>, для группы <span class="badge badge-success">{{ $group }}</span></h5>
+                <h5>Пользователей в базе<span class="badge badge-success">{{ $count_leads }}</span></h5>
+                <h5>Обновлено пользователей <span class="badge badge-success">{{ $count_leads_updated }}</span></h5>
             </div>
             <div class="form-group">
                 {{ Form::label('message', 'Сообщение') }}
@@ -25,7 +25,7 @@
                     'class' => 'form-control',
                     'aria-label' => 'Сообщение',
                     'placeholder' => 'Введите ваше сообщение',
-                    'rows' => '4'
+                    'rows' => '10'
                 ]) }}
                 <small class="form-text text-muted">Доступные переменные: {FIRST_NAME} - Имя.</small>
                 <small class="form-text text-muted">Необходимо сохранять регистр переменных.</small>
