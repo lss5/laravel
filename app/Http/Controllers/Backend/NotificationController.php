@@ -15,7 +15,7 @@ class NotificationController extends Controller
 {
     public function index(Request $request)
     {
-        return view('backend.notification.index')->with([
+        return view('backend.notifications.index')->with([
             'notifications' => Notification::orderBy('created_at', 'desc')->simplePaginate(6),
         ]);
     }
@@ -30,7 +30,7 @@ class NotificationController extends Controller
                     $count_leads_updated++;
             }
 
-            return view('backend.notification.create')->with([
+            return view('backend.notifications.create')->with([
                 'count_leads_updated' => $count_leads_updated,
                 'count_leads' => Lead::count(),
             ]);
