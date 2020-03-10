@@ -47,7 +47,7 @@ class NotificationController extends Controller
 
         try {
             $count_messages_sent = 0;
-            $leads = Lead::where('allow_message', 1)->get();
+            $leads = Lead::where('allow_message', 1)->orderBy('created_at', 'desc')->get();
             foreach ($leads as $lead) {
                 $message = str_replace('{FIRST_NAME}', $lead->first_name, $request->message);
                 VKApi::messageSend($lead->id, $message);
