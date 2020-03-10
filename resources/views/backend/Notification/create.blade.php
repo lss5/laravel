@@ -16,8 +16,8 @@
     <div class="container">
         {{ Form::open(['route' => 'admin.notification.store', 'method' => 'post']) }}
             <div class="form-group">
-                <h5>Пользователей в базе<span class="badge badge-success">{{ $count_leads }}</span></h5>
-                <h5>Обновлено пользователей <span class="badge badge-success">{{ $count_leads_updated }}</span></h5>
+                <h5>Отписались от сообщений<span class="badge badge-success">{{ $count_leads_updated }}</span></h5>
+                <h5>Доступно для отправки<span class="badge badge-success">{{ $count_leads }}</span></h5>
             </div>
             <div class="form-group">
                 {{ Form::label('message', 'Сообщение') }}

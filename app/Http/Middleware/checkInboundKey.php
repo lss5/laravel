@@ -16,7 +16,7 @@ class CheckInboundKey
      */
     public function handle($request, Closure $next)
     {
-        if ($request->input('secret') == env('VK_SECRET_KEY')) {
+        if ($request->input('secret') == config('services.vk.secret_key')) {
             return $next($request);
         }
 

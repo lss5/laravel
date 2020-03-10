@@ -43,4 +43,13 @@ return [
             'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),
         ],
     ],
+    'vk' => [
+        'access_token' => env('VK_ACCESS_TOKEN'),
+        'api_version' => env('VK_API_VERSION'),
+        'api_url' => env('VK_API_URL'),
+        'service_key' => env('VK_SERVICE_KEY'),
+        'group_id' => env('VK_GROUP_ID'),
+        'confirm_token' => env('VK_CONFIRM_TOKEN'),
+        'secret_key' => env('VK_SECRET_KEY'),
+    ],
 ];

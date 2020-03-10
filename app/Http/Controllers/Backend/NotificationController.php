@@ -23,17 +23,16 @@ class NotificationController extends Controller
     public function create(Request $request)
     {
         $leads = Lead::where('updated_at', '<=', Carbon::now()->subDay())->get();
-        $count_leads = Lead::count();
         try {
             $count_leads_updated = 0;
             foreach ($leads as $lead) {
-                if ($lead->checkAvailable())
+                if (!$lead->checkAvailable())
                     $count_leads_updated++;
             }
 
             return view('backend.notification.create')->with([
                 'count_leads_updated' => $count_leads_updated,
-                'count_leads' => $count_leads
+                'count_leads' => Lead::count(),
             ]);
         } catch (\Exception $e) {
             return redirect()->route('admin.notification.index')->withErrors($e->getMessage());

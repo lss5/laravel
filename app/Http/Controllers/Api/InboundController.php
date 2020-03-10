@@ -18,7 +18,7 @@ class InboundController extends Controller
     {
         switch ($request->input("type")) {
             case self::EVENT_CONFIRM:
-                return response(env('VK_CONFIRM_TOKEN'), 200);
+                return response(config('services.vk.confirm_token'), 200);
             break;
 
             case self::EVENT_MESSAGE_NEW:

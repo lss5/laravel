@@ -13,7 +13,7 @@ class Lead extends Model
 
     public static function getLeads()
     {
-        return self::with('lastMessage')->orderBy('created_at', 'desc')->get();
+        return self::with('lastMessage')->get()->sortByDesc('lastMessage.created_at');
     }
 
     public function messages()
@@ -23,7 +23,7 @@ class Lead extends Model
 
     public function lastMessage()
     {
-        return $this->hasOne('App\Message')->orderBy('created_at', 'desc')->latest();
+        return $this->hasOne('App\Message')->latest();
     }
 
     /**
@@ -52,8 +52,18 @@ class Lead extends Model
             return false;
 
         $allow = VKApi::messagesGroupAllowed($this->id);
-        $this->allow_message = (bool) $allow['is_allowed'];
-        $this->save();
-        return (bool) $allow['is_allowed'];
+        if (isset($allow['is_allowed'])) {
+            if ($allow['is_allowed']) {
+                $this->allow_message = (bool) $allow['is_allowed'];
+                $this->save();
+                return true;
+            } else {
+                $this->delete();
+                return false;
+            }
+        }
+        throw new \Exception('Ошибка проверки разрешения отправки сообщений пользователю');
+
+        return false;
     }
 }

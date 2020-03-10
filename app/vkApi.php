@@ -6,14 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class VKApi extends Model
 {
-    const VK_API_URL = 'https://api.vk.com/method/';
-
     public static function call($method, array $params)
     {
-        $params['access_token'] = env('VK_ACCESS_TOKEN');
-        $params['v'] = env('VK_API_VERSION', '5.95');
+        $params['access_token'] = config('services.vk.access_token');
+        $params['v'] = config('services.vk.api_version', '5.95');
 
-        $url = env('VK_API_URL', 'https://api.vk.com/method/');
+        $url = config('services.vk.api_url', 'https://api.vk.com/method/');
         $query = http_build_query($params);
         $url = $url.$method.'?'.$query;
     
@@ -26,10 +24,10 @@ class VKApi extends Model
 
     public static function callService($method, array $params)
     {
-        $params['access_token'] = env('VK_SERVICE_KEY');
-        $params['v'] = env('VK_API_VERSION', '5.95');
+        $params['access_token'] = config('services.vk.VK_SERVICE_KEY');
+        $params['v'] = config('services.vk.api_version', '5.95');
 
-        $url = env('VK_API_URL', 'https://api.vk.com/method/');
+        $url = config('services.vk.api_url', 'https://api.vk.com/method/');
         $query = http_build_query($params);
         $url = $url.$method.'?'.$query;
 
@@ -69,7 +67,7 @@ class VKApi extends Model
     public static function messagesGroupAllowed($user_id)
     {
         return self::call('messages.isMessagesFromGroupAllowed', [
-            'group_id' => env('VK_GROUP_ID'),
+            'group_id' => config('services.vk.group_id'),
             'user_id' => $user_id,
         ]);
     }
