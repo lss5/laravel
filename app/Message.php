@@ -27,7 +27,7 @@ class Message extends Model
     public function sendAnswer($lead_id)
     {
         try {
-            $answers = Answer::where('active', '1')->orderBy('created_at', 'desc')->get();
+            $answers = Answer::where('active', '1')->orderBy('created_at', 'asc')->get();
             if ($answers->count() == 0)
                 throw new \Exception("Не найдены ответы для пользователя {$lead_id}");
 
